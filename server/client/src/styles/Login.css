@@ -15,5 +15,48 @@
 
 #login-portion {
     width: 80%;
-    margin: auto;
+    margin: 0 10%;
+    max-width: 450px;
+}
+
+#login-portion input {
+    height: 50px;
+    font-size: 2em;
+    display: block;
+    border: solid var(--black);
+    border-width: 0 0 1px 0;
+    margin: 0 auto 20px auto;
+    width: 100%;
+}
+
+#login-portion button {
+    width: 80%;
+    background-color: var(--main);
+    color: white;
+    font-weight: 700;
+    font-size: 1.7em;
+    height: 50px;
+    border: 0;
+    margin: 0 0 0 10%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#login-portion button:hover {
+    background-color: var(--dark);
+}
+
+#login-portion button:focus {
+    outline: none;
+}
+
+
+#login-portion p {
+    font-size: .8em;
+    text-align: center;
+}
+
+#login-portion p span {
+    text-decoration: underline;
+    cursor: pointer;
 }
