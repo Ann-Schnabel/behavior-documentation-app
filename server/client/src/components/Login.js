@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/Login.css';
+import Plants from '../assets/plants.svg'
 
 
 class Login extends Component {
@@ -18,6 +19,7 @@ class Login extends Component {
                 <button>Login</button>
                 <p className='small-text'>Don't have an account? <span className='underline'>Sign up here.</span></p>
             </div>
+            <img id='plants' src={Plants} alt='wall of plants'></img>
         </div>
       );
   }
