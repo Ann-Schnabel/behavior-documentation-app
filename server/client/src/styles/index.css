@@ -1,4 +1,40 @@
+:root {
+  --main: #2BD9CA;
+  --dark: #238C83;
+  --light: #A9EDE3;
+  --black: #101817; 
+  --grey-light: #CACECD;
+  
+}
+
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
+
+h1 {
+  font-weight: 900;
+  font-size: 3em;
+  margin: 100px 0 0 0;
+  padding: 0;
+  color: var(--black);
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 2em;
+  margin: 0;
+  padding: 0 0 50px 0;
+  color: var(--black);
+}
+
+@media only screen and (max-width: 468px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+}  
