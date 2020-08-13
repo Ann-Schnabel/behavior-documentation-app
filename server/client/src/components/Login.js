@@ -5,6 +5,11 @@ import Plants from '../assets/plants.svg'
 import NavBar from './NavBar'
 
 class Login extends Component {
+  componentDidMount() {
+    document.body.style.backgroundColor = 'white';
+    
+  }
+  
   render() {
     return (
         <div>
