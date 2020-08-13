@@ -53,5 +53,22 @@ module.exports = function (router) {
 
   })
 
+  //route to add an existing student to a teacher
+
+  router.put("/api/teacher/existingStudent", (request, response, next) => {
+    models.Teacher.findById(request.body.teacherId)
+    .populate("students")
+    .exec((error, teacher) => {
+      if (error) return response.send(error.message);
+
+      models.Student.findById(request.body.studentId)
+      .exec((error, student ) => {
+        teacher.students.push(student);
+        teacher.save();
+        response.send(teacher.students);
+      })
+    })
+  })
+
 
 }
