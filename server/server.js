@@ -47,18 +47,24 @@ const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const keys = require('./config/keys');
-const moment = require("moment");
+// const keys = require('./config/keys');
 
 const Schema = mongoose.Schema;
 
+mongoose.connect('mongodb://localhost/BehaviorTracking');
 
+app.use(cors());
 
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+router(app);
 
+const port = 5000;
+const server = http.createServer(app);
 
-
-//
-
-
-//student has behaviors
-// each behavior has data
+server.listen(port);
+console.log("Server listening on:", port);

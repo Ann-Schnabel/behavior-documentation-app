@@ -79,47 +79,58 @@ const Student = mongoose.model("student", studentSchema);
 
 
 
-let student1 = new Student({
-  firstName: "Spalding",
-  lastName: "Vance",
-  dob: "06/16/1997",
-})
+// let student1 = new Student({
+//   firstName: "Spalding",
+//   lastName: "Vance",
+//   dob: "06/16/1997",
+// })
 
-let behavior1 = new Behavior({
-  behaviorName: "behavior1",
-  recordingType: "eventRecording"
-})
+// let behavior1 = new Behavior({
+//   behaviorName: "behavior1",
+//   recordingType: "eventRecording"
+// })
 
-let teacher1 = new Teacher({
-  firstName: "Ann",
-  lastName: "Schnabel"
-})
-
-
+// let teacher1 = new Teacher({
+//   firstName: "Ann",
+//   lastName: "Schnabel"
+// })
 
 
-let newEventData = new EventData({
-  date: "08/12/20",
-  behavior: "behavior1",
-  startTime: "10:00AM",
-  endTime: "11:00AM",
-  tally: 10
-})
 
 
-let newEventData2 = new EventData({
-  date: "08/12/20",
-  behavior: "behavior1",
-  startTime: "11:00AM",
-  endTime: "12:00PM",
-  tally: 4
-})
+// let newEventData = new EventData({
+//   date: "08/12/20",
+//   behavior: "behavior1",
+//   startTime: "10:00AM",
+//   endTime: "11:00AM",
+//   tally: 10
+// })
 
 
-behavior1.data.push(newEventData2);
-student1.behaviors.push(behavior1);
-student1.save();
+// let newEventData2 = new EventData({
+//   date: "08/12/20",
+//   behavior: "behavior1",
+//   startTime: "11:00AM",
+//   endTime: "12:00PM",
+//   tally: 4
+// })
 
-teacher1.students.push(student1);
 
-teacher1.save();
+// behavior1.data.push(newEventData2);
+// student1.behaviors.push(behavior1);
+// student1.save();
+
+// teacher1.students.push(student1);
+
+// teacher1.save();
+
+
+module.exports = {
+  Student,
+  Teacher,
+  Behavior,
+  EventData,
+  DurationData,
+  LatencyData,
+  IntervalData
+}
