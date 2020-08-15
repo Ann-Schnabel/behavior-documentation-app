@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import '../styles/Login.css';
 import Plants from '../assets/plants.svg'
 
+import NavBar from './NavBar'
 
 class Login extends Component {
+  componentDidMount() {
+    document.body.style.backgroundColor = 'white';
+    
+  }
+  
   render() {
     return (
         <div>
-            <div className='nav'>
-                <div id='logo-square'></div>
-                <h1 id='logo'>Logo</h1>
-            </div>
+            <NavBar />
             <div id='login-portion'>
                 <h1>Welcome back!</h1>
                 <h2>Sign in to continue</h2>
