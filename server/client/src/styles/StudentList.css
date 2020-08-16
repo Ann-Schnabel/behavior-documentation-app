@@ -1,3 +1,49 @@
+#student-container-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#student-container-header h2 {
+    padding: 0;
+}
+
+.add {
+    cursor: pointer;
+}
+
+#drop-down-icon {
+    display: none;
+}
+
 #student-container {
-    
+    background-color: white;
+    width: 250px;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.student-links {
+    text-decoration: none;
+    color: white;
+    background-color: var(--main);
+    font-size: 1.3em;
+    padding: 13px;
+    display: block;
+    margin-top: 15px;
+    overflow: scroll;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    #student-container {
+        width: calc(100%);
+        margin: 0;
+        border-radius: 0;
+    }
+
+    #drop-down-icon {
+        display: block;
+    }
 }
