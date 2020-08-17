@@ -46,7 +46,8 @@ const latencyRecordingSchema = new Schema({
 const intervalRecordingSchema = new Schema({
   date: String,
   intervalLength: Number, //(minutes)
-  intervals: [{ interval: Number, eventOccurred: Boolean}]
+  startTime: String,
+  intervals: [{ interval: Number, eventOccurred: String}]
 })
 
 const teacherSchema = new Schema({
