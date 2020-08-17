@@ -75,7 +75,7 @@ module.exports = function (router) {
       })
   })
 
-
+  //route to add a new behavior to a student
   router.put("/api/student/behavior", (request, response, next) => {
     if (!mongoose.Types.ObjectId.isValid(request.body.studentId)) {
       response.writeHead(400, "Invalid Student ID Format")
@@ -104,7 +104,7 @@ module.exports = function (router) {
 
   // route to add data to an existing behavior
   // takes in studentId, recordingType, date
-    // startTime, endTime, tally, studentStartTime, intervalData, intervalLength, behaviorId
+  // startTime, endTime, tally, studentStartTime, intervalData, intervalLength, behaviorId
   router.put("/api/student/behaviorData", (request, response, next) => {
     if (!mongoose.Types.ObjectId.isValid(request.body.studentId)) {
       response.writeHead(400, "Invalid Student ID Format")
@@ -147,7 +147,7 @@ module.exports = function (router) {
                   startTime: request.body.startTime,
                 })
                 request.body.intervalData.split(",").forEach((occurred, index) => {
-                  data.intervals.push({interval: index, eventOccured: occurred});
+                  data.intervals.push({ interval: index, eventOccured: occurred });
                 })
                 break;
               default:
@@ -155,9 +155,10 @@ module.exports = function (router) {
                 response.end();
             }
             let behaviorIndex = student.behaviors.findIndex(behavior => String(behavior._id) === request.body.behaviorId);
-            console.log("behavior index", behaviorIndex);
-            console.log(student.behaviors);
-            console.log(typeof student.behaviors[0]._id)
+            if (behaviorIndex < 0) {
+              response.writeHead(404, "No Behavior with That Id found");
+              response.end();
+            }
             student.behaviors[behaviorIndex].data.push(data);
             student.save();
             response.send(student.behaviors[behaviorIndex]);
@@ -166,4 +167,29 @@ module.exports = function (router) {
     }
   })
 
+  //route to get a behavior and its data
+  // takes in studentId, behaviorId
+  router.get("/api/student/behaviorData", (request, response, next) => {
+    if (!mongoose.Types.ObjectId.isValid(request.body.studentId)) {
+      response.writeHead(400, "Invalid Student ID Format")
+      response.end();
+    } else if (!mongoose.Types.ObjectId.isValid(request.body.behaviorId)) {
+      response.writeHead(400, "Invalid Behavior ID Format")
+      response.end();
+    } else {
+      models.Student.findById(request.body.studentId)
+        .exec((err, student) => {
+          if (err) {
+            return response.send(error.message)
+          } else {
+            let behaviorIndex = student.behaviors.findIndex(behavior => String(behavior._id) === request.body.behaviorId);
+            if (behaviorIndex < 0) {
+              response.writeHead(404, "No Behavior with That Id found");
+              response.end();
+            }
+            response.send(student.behaviors[behaviorIndex]);
+          }
+        })
+    }
+  })
 }
