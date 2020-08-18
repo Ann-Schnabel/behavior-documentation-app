@@ -11,7 +11,7 @@
     cursor: pointer;
 }
 
-#drop-down-icon {
+.drop-down-icon {
     display: none;
 }
 
@@ -43,7 +43,8 @@
         border-radius: 0;
     }
 
-    #drop-down-icon {
+    .drop-down-icon {
         display: block;
+        cursor: pointer;
     }
 }
