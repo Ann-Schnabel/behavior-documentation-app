@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../styles/Home.css';
 
-import NavBar from './NavBar'
-import StudentList from './StudentList'
+import NavBar from './NavBar';
+import StudentList from './StudentList';
+import EmptyHome from './EmptyHome';
 
 class Home extends Component {
   render() {
@@ -10,7 +11,7 @@ class Home extends Component {
         <div>
             <NavBar />
             <StudentList />
-            
+            <EmptyHome />
         </div>
       );
   }

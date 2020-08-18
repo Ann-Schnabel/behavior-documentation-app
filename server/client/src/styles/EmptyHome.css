@@ -1,0 +1,19 @@
+#emptyHomeContainer {
+    position: absolute;
+    top: 70px;
+    left: 270px;
+    width: calc(100% - 280px);
+    height: 200px;
+    background-color: white;
+
+}
+
+@media only screen and (max-width: 600px) {
+    #emptyHomeContainer {
+        position: relative;
+        width: calc(100% - 20px);
+        top: 0;
+        left: 0;
+        margin: 10px;
+    }
+}

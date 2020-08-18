@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../styles/StudentList.css';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 
-class StudentList extends Component {
-  constructor() {
-    super()
+export default function StudentList() {
+  const [dropDown, setDropDown] = useState(true);
 
-    this.state = {
-      dropDown: true
-    }
+  React.useEffect(() => {
+    window.addEventListener("resize", checkWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", checkWindowWidth);
+    };
+  }, []);
+
+  const checkWindowWidth = () => {
+    const breakpoint = window.matchMedia("(min-width: 600px)");
+    if (breakpoint.matches) {
+      setDropDown(true)
+    } else setDropDown(false)
+  };
+
+  const toggleStudents = () => {
+    setDropDown(!dropDown)
   }
 
-  toggleStudents = () => {
-    this.setState({dropDown: !this.state.dropDown})
-  }
-
-  screenSizeDropDownDecision() {
-    if (window.innerWidth < 600) {
-      this.setState({dropDown: false})
-    } else this.setState({dropDown: true})
-  }
-
-  renderStudents() {
+  const renderStudents = () => {
     const students = ['Ann Schnabel', 'Spalding Vance', 'Pierre Lourens'];
 
     return students.map(student => {
@@ -35,24 +38,24 @@ class StudentList extends Component {
       )
     });
   }
-  
-  render() {
-    return (
-      <div>
-        <div id='student-container'>
-          <div id='student-container-header'>
-            <h2>Students</h2>
-            {this.state.dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={this.toggleStudents} icon={faChevronDown} size='3x'/> }
-            {!this.state.dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={this.toggleStudents} icon={faChevronUp} size='3x'/> }
-          </div>
-          {this.state.dropDown && this.renderStudents()}
-        </div>
-      </div>
-    );
-  }
-}
 
-export default StudentList;
+  return (
+    <div>
+      <div id='student-container'>
+        <div id='student-container-header'>
+          <h2>Students</h2>
+          {!dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={toggleStudents} icon={faChevronDown} size='3x'/> }
+          {dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={toggleStudents} icon={faChevronUp} size='3x'/> }
+        </div>
+        {dropDown && <div id="students">
+         {renderStudents()}
+        </div>}
+        
+      </div>
+    </div>
+  );
+
+}
 
 
 {/* <NavLink to='/home/:id' className='student-links'>
