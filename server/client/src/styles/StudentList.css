@@ -43,6 +43,12 @@
         border-radius: 0;
     }
 
+    #students {
+        height: 100%;
+        max-height: 400px;
+        overflow: scroll;
+    }
+
     .drop-down-icon {
         display: block;
         cursor: pointer;

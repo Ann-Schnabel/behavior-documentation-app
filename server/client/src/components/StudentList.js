@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/StudentList.css';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,7 +6,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function StudentList() {
-  const [dropDown, setDropDown] = useState(false);
+  const [dropDown, setDropDown] = useState(true);
 
   React.useEffect(() => {
     window.addEventListener("resize", checkWindowWidth);
@@ -47,7 +47,10 @@ export default function StudentList() {
           {!dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={toggleStudents} icon={faChevronDown} size='3x'/> }
           {dropDown && <FontAwesomeIcon className='drop-down-icon' onClick={toggleStudents} icon={faChevronUp} size='3x'/> }
         </div>
-        {dropDown && renderStudents()}
+        {dropDown && <div id="students">
+         {renderStudents()}
+        </div>}
+        
       </div>
     </div>
   );
