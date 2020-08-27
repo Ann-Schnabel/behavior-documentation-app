@@ -48,7 +48,19 @@ const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { Student, Teacher, Behavior, EventData, LatencyData, DurationData, IntervalData } = require('./models/studentSchema');
+const redis = require("redis");
+const responseTime = require("response-time");
 // const keys = require('./config/keys');
+
+const client = redis.createClient();
+
+// Print redis errors to the console
+client.on('error', (err) => {
+  console.log("Error " + err);
+});
+
+// use response-time as a middleware
+app.use(responseTime());
 
 const Schema = mongoose.Schema;
 
@@ -62,7 +74,7 @@ app.use(
     extended: true,
   })
 );
-router(app);
+router(app, client);
 
 const port = 5000;
 const server = http.createServer(app);

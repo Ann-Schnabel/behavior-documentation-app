@@ -6,18 +6,24 @@ const redis = require("redis");
 const responseTime = require("response-time");
 
 
-module.exports = function (router) {
+module.exports = function (router, client) {
   //route to get all students that belong to a teacher
   // takes in teacherId in request.body
   router.get("/api/teacher/students", (request, response, next) => {
-    //get all available events
-    models.Teacher.findById(request.body.teacherId)
-      .populate("students")
-      .exec((error, teacher) => {
-        if (error) return response.send(error.message);
+    client.get(JSON.stringify(request.body), (err, result) => {
+      if (result) {
+        response.send(result.students);
+      } else {
+        //get all available events
+        models.Teacher.findById(request.body.teacherId)
+          .populate("students")
+          .exec((error, teacher) => {
+            if (error) return response.send(error.message);
 
-        response.send(teacher.students);
-      });
+            response.send(teacher.students);
+          });
+      }
+    })
   });
 
   //route to add a teacher to the database
