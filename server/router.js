@@ -10,16 +10,17 @@ module.exports = function (router, client) {
   //route to get all students that belong to a teacher
   // takes in teacherId in request.body
   router.get("/api/teacher/students", (request, response, next) => {
-    client.get(JSON.stringify(request.body), (err, result) => {
+    client.get(JSON.stringify(request.body).trim(), (err, result) => {
       if (result) {
         response.send(JSON.parse(result));
+        console.log(JSON.stringify(request.body).trim());
       } else {
         //get all available events
         models.Teacher.findById(request.body.teacherId)
           .populate("students")
           .exec((error, teacher) => {
             if (error) return response.send(error.message);
-            client.setex(JSON.stringify(request.body), 3600, JSON.stringify(teacher.students));
+            client.setex(JSON.stringify(request.body).trim(), 3600, JSON.stringify(teacher.students));
           // Send JSON response to client
 
             response.send(teacher.students);
@@ -233,9 +234,12 @@ module.exports = function (router, client) {
             });
 
             if (teacher.students.length === numStudents - 1) {
+              let redisKey = JSON.stringify({teacherId: request.body.teacherId}).trim();
+              client.setex(redisKey, 3600, JSON.stringify(teacher.students));
               teacher.save();
               response.send(teacher.students);
             } else {
+              
               response.writeHead(404, "No Student with that ID found");
               response.end();
             }
