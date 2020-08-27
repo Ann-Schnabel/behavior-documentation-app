@@ -12,13 +12,15 @@ module.exports = function (router, client) {
   router.get("/api/teacher/students", (request, response, next) => {
     client.get(JSON.stringify(request.body), (err, result) => {
       if (result) {
-        response.send(result.students);
+        response.send(JSON.parse(result));
       } else {
         //get all available events
         models.Teacher.findById(request.body.teacherId)
           .populate("students")
           .exec((error, teacher) => {
             if (error) return response.send(error.message);
+            client.setex(JSON.stringify(request.body), 3600, JSON.stringify(teacher.students));
+          // Send JSON response to client
 
             response.send(teacher.students);
           });
