@@ -193,5 +193,38 @@ module.exports = function (router) {
     }
   })
 
-  
+  //route to remove a student from a teacher
+  // takes in studentId and teacherId in request body
+
+  router.delete("/api/teacher/students", (request, response, next) => {
+    if (!mongoose.Types.ObjectId.isValid(request.body.studentId)) {
+      response.writeHead(400, "Invalid Student ID Format")
+      response.end();
+    } else if (!mongoose.Types.ObjectId.isValid(request.body.teacherId)) {
+      response.writeHead(400, "Invalid Teacher ID Format")
+      response.end();
+    } else {
+      models.Teacher.findById(request.body.teacherId)
+        .exec((err, teacher) => {
+          if (err) {
+            return response.send(error.message)
+          } else {
+            let numStudents = teacher.students.length;
+            teacher.students = teacher.students.filter(student => {
+              return student != request.body.studentId
+            });
+
+            if (teacher.students.length === numStudents - 1) {
+              teacher.save();
+              response.send(teacher.students);
+            } else {
+              response.writeHead(404, "No Student with that ID found");
+              response.end();
+            }
+          }
+        })
+    }
+  })
+
+
 }

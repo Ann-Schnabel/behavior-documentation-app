@@ -221,4 +221,4 @@ durationDataArr.forEach(data => {
   student1.behaviors[1].data.push(data)
 })
 
-student1.save();
+// s
