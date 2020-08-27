@@ -187,7 +187,11 @@ module.exports = function (router, client) {
       response.writeHead(400, "Invalid Behavior ID Format")
       response.end();
     } else {
-      models.Student.findById(request.body.studentId)
+      client.get(JSON.stringify(request.body), (err, result) => {
+        if (result) {
+          response.send(JSON.parse(result));
+        } else {
+          models.Student.findById(request.body.studentId)
         .exec((err, student) => {
           if (err) {
             return response.send(error.message)
@@ -197,9 +201,13 @@ module.exports = function (router, client) {
               response.writeHead(404, "No Behavior with That Id found");
               response.end();
             }
+            client.setex(JSON.stringify(request.body), 3600, JSON.stringify(student.behaviors[behaviorIndex]));
             response.send(student.behaviors[behaviorIndex]);
           }
         })
+        }
+      })
+      
     }
   })
 
