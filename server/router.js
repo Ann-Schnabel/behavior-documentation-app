@@ -2,6 +2,8 @@ const models = require("./models/studentSchema");
 const { request } = require("express");
 const mongoose = require("mongoose");
 const { Behavior, EventData, DurationData, LatencyData, IntervalData } = require("./models/studentSchema");
+const redis = require("redis");
+const responseTime = require("response-time");
 
 
 module.exports = function (router) {
